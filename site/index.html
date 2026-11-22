@@ -20,6 +20,7 @@
 <meta name="twitter:title" content="GitHub">
 <meta name="twitter:description" content="Manage your GitHub access and repositories from your own browser: who can reach what, and what changed. An unofficial site, not made or endorsed by GitHub.">
 <meta name="twitter:image" content="https://github.platform.sovereignweb.site/assets/share/card-1200x630.jpg">
+<link rel="stylesheet" href="/assets/gh.css">
 <link rel="canonical" href="https://github.platform.sovereignweb.site/">
 <style>
 :root{--bg:#fbfaf7;--fg:#1d1d1b;--muted:#5d5c57;--accent:#2f6b4f;--line:#e4e1d8}
@@ -90,9 +91,33 @@ code{font-size:.9em}main a,main code{overflow-wrap:anywhere}
 </header>
 <main id="main">
 <div class="mark">github.platform.sovereignweb.site</div>
-<h1>GitHub</h1>
-<p>Manage your GitHub access and repositories from your own browser: who can reach what, and what changed. An unofficial site, not made or endorsed by GitHub.</p>
-<p>This site was made by one request to the Sovereign Website pipeline. Its files, its history and its address are in a repository its owner controls, and can move anywhere.</p>
+<h1>Your GitHub access, at a glance</h1>
+<p>See every repository you can reach, your role on each, and who else has access: people, teams, deploy keys, webhooks and rulesets. It only reads. An unofficial site, not made or endorsed by GitHub.</p>
+
+<form id="signin" class="signin" autocomplete="off">
+  <label for="token">Your GitHub token (fine-grained, read-only)</label>
+  <input id="token" name="token" type="password" spellcheck="false" autocapitalize="off" required>
+  <button type="submit">Read my access</button>
+</form>
+<button id="forget" type="button" class="small" hidden>Forget the token</button>
+<p id="status" class="status" role="status" aria-live="polite"></p>
+<p id="rate" class="note"></p>
+<div id="out"></div>
+<div id="detail"></div>
+
+<h2>Your token stays with you</h2>
+<ul class="plain">
+<li>It is kept only in this tab's memory: reload or close the tab and it is gone. It is never stored, never logged and never sent anywhere but <code>api.github.com</code>, straight from your browser. This site has no server.</li>
+<li>The page only reads: it makes GET requests and nothing else, so it cannot change your repositories even with a token that could.</li>
+<li>Make a <a href="https://github.com/settings/personal-access-tokens/new">fine-grained token</a> with read-only access: Metadata, Administration (to see people, keys and rulesets) and Webhooks, on the repositories you choose. Give it a short expiry. An organisation may need to approve it.</li>
+</ul>
+
+<h2>What comes next</h2>
+<ul class="plain">
+<li>Signing in with GitHub instead of pasting a token. GitHub's login step does not allow calls from a web page, so it needs one small exchange step off the page; that waits for the owner's word.</li>
+<li>Flags for repositories that stand out: public when you did not expect it, no rules on the default branch, a deploy key that can push.</li>
+<li>For the SovereignWebsite organisation, changes are proposed to <a href="https://github.com/SovereignWebsite/SovereignWebsite__Factory">SovereignWebsite__Factory</a>, which runs it as code; this site never applies them.</li>
+</ul>
 <footer>
 <nav class="site-links" aria-label="About this site">
   <a href="/start/">Start here</a>
@@ -102,5 +127,6 @@ code{font-size:.9em}main a,main code{overflow-wrap:anywhere}
 </nav>
 A sovereign website, made with the <a href="https://sovereignwebsite.org/">open pattern</a>. Source: <a href="https://github.com/SovereignWebsite/Site__Platform__GitHub">github.com/SovereignWebsite/Site__Platform__GitHub</a>.</footer>
 </main>
+<script src="/assets/gh.js" defer></script>
 </body>
 </html>
