@@ -24,9 +24,9 @@ NEXT = [
 ]
 SENT = "When you press the button, your token goes from this tab to api.github.com and nowhere else; this page names only that host in its security policy."
 DESIGNS = [
-    (1, "Key Ring", "Every way into your repositories is a key; the page is the ring that holds them, with your token as the one you bring."),
+    (1, "Key Ring", "A workbench: your token as the key tag on the left, and every way into your repositories laid out as the ring beside it."),
     (2, "Strongroom", "A strongroom, dark first: the rules for your token on the door, the access view inside."),
-    (3, "Register", "An access register: who may enter, each column ruled, the rules for the token as its front page."),
+    (3, "Register", "An access register: the rules for the token as its front page, then the register itself, your repositories and who may enter, as the body of the book."),
     (4, "Pre-flight", "A pre-flight checklist: what stands out, step by step, before you trust a repository."),
     (5, "Brief", "Everything on one plain page, for reading fast or printing."),
 ]
@@ -59,6 +59,11 @@ main *{min-width:0}
 .chrome li a[aria-current]{font-weight:700;text-decoration:underline}
 .chrome .gap{border-top:1px solid var(--ctl);margin-top:.3rem;padding-top:.3rem}
 .chrome small{display:block;font-size:.85rem;color:var(--muted);font-weight:400}
+.ring:has(#out:not(:empty)) .empty,.book:has(#out:not(:empty)) .empty{display:none}
+.out .scroll{overflow-x:auto}
+main .out table th,main .out table td{overflow-wrap:normal;word-break:normal;white-space:nowrap}
+main .out table td:nth-child(6){white-space:normal;min-width:10rem}
+.out table{min-width:38rem}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .signin{display:grid;grid-template-columns:1fr auto auto;gap:.4rem .6rem;align-items:end;margin:1.25rem 0 .5rem}
 .signin label{font-size:.9rem;color:var(--muted);grid-row:1}
@@ -148,7 +153,8 @@ def own(cls="own"):
     return f'<nav class="{cls}" aria-label="This site"><a href="#signin">Read my access</a><a href="#token-rules">Your token stays with you</a><a href="/start/">Start here</a><a href="/agents/">Use with your AI</a></nav>'
 
 
-def form(btn="Read my access"):
+def form(btn="Read my access", out=True):
+    o = OUTB if out else ""
     return f"""<form id="signin" class="signin" autocomplete="off">
 <label for="token">Your GitHub token (fine-grained, read-only)</label>
 <input id="token" name="token" type="password" spellcheck="false" autocapitalize="off" required>
@@ -158,7 +164,11 @@ def form(btn="Read my access"):
 <button id="forget" type="button" class="small" hidden>Forget the token</button>
 <p id="status" class="status" role="status" aria-live="polite"></p>
 <p id="rate" class="note"></p>
-<div class="out"><div id="out"></div><div id="detail"></div></div>"""
+{o}"""
+
+
+OUTB = '<div class="out"><div id="out"></div><div id="detail"></div></div>'
+EMPTY = "Your repositories and their access appear here once you read your access."
 
 
 def ul(items, cls="plain"):
@@ -192,8 +202,16 @@ h2{font-size:clamp(1.45rem,3.4vw,2rem);margin:0 0 .4rem}
 .lede{max-width:44rem;font-size:1.1rem}
 .key{position:relative;background:var(--tag);border:2px solid var(--brass);border-radius:1.2rem 1.2rem 1.2rem 4rem;padding:1.25rem 1.25rem 1.25rem 2.5rem;margin:1.5rem 0}
 .key::before{content:"";position:absolute;left:.9rem;top:1.25rem;width:.8rem;height:.8rem;border:3px solid var(--brass);border-radius:50%}
-.tags{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));margin:2rem 0}
-.tags section{background:var(--tag);border:1px solid var(--line);border-left:6px solid var(--brass);border-radius:.4rem 1rem 1rem .4rem;padding:1rem 1.2rem}
+.bench{display:grid;gap:1.5rem;grid-template-columns:1fr;margin:1.5rem 0}
+@media (min-width:60rem){.bench{grid-template-columns:22rem 1fr;align-items:start}}
+.ring{background:var(--tag);border:2px dashed var(--brass);border-radius:1rem;padding:1.25rem;min-height:16rem}
+.ring>h2{margin:0 0 .4rem}
+.empty{color:var(--muted)}
+.key{margin:0 0 1rem}
+.rail .signin{grid-template-columns:1fr}
+.rail .signin button{grid-column:1;grid-row:3}
+.rail .signin input{grid-column:1}
+.tag{background:var(--tag);border:1px solid var(--line);border-left:6px solid var(--brass);border-radius:.4rem 1rem 1rem .4rem;padding:1rem 1.2rem}
 .plain{padding-left:1.1rem;margin:.4rem 0}.plain li{margin:.5rem 0}
 footer{border-top:1px solid var(--line)}
 """
@@ -203,9 +221,10 @@ def d1():
     return head(1, CSS1) + f"""<div class="wrap">{chrome(1)}
 <header class="mast"><a class="brand" href="/">GitHub</a>{own()}</header>
 <main id="main"><p class="k">{MARK}</p><h1>{H1}</h1><p class="lede">{INTRO}</p>
-<div class="key">{form()}</div>
-<div class="tags"><section id="token-rules" aria-labelledby="h-st"><h2 id="h-st">Your token stays with you</h2>{ul(STAYS)}</section>
-<section aria-labelledby="h-nx"><h2 id="h-nx">What comes next</h2>{ul(NEXT)}</section></div>
+<div class="bench"><div class="rail"><div class="key">{form(out=False)}</div>
+<section class="tag" id="token-rules" aria-labelledby="h-st"><h2 id="h-st">Your token stays with you</h2>{ul(STAYS)}</section></div>
+<section class="ring" aria-labelledby="h-ring"><h2 id="h-ring">The ring: every way in</h2><p class="empty">{EMPTY}</p>{OUTB}</section></div>
+<section class="tag" aria-labelledby="h-nx"><h2 id="h-nx">What comes next</h2>{ul(NEXT)}</section>
 </main>
 """ + footer().replace("</body>", "</div></body>")
 
@@ -262,6 +281,9 @@ h2{font-size:1.45rem;margin:0 0 .4rem}
 .plain li{counter-increment:n;padding:.55rem 0 .55rem 2.2rem;position:relative;border-bottom:1px solid var(--line)}
 .plain li::before{content:counter(n,decimal-leading-zero);position:absolute;left:0;font:700 .9rem ui-monospace,Menlo,Consolas,monospace;color:var(--muted)}
 .entry{padding:2rem 0}
+.book{border-bottom:1px solid var(--rule);min-height:14rem}
+.book .out table{font-family:Georgia,"Iowan Old Style","Times New Roman",serif}
+.empty{color:var(--muted);font-style:italic}
 footer{border-top:3px double var(--rule)}
 """
 
@@ -272,7 +294,8 @@ def d3():
 <main id="main">
 <div class="title"><p class="k">The access register · {MARK}</p><h1>{H1}</h1><p>{INTRO}</p></div>
 <div class="leaf"><section id="token-rules" aria-labelledby="h-st"><h2 id="h-st">Your token stays with you</h2>{ul(STAYS)}</section>
-<section aria-labelledby="h-en"><h2 id="h-en">Make an entry</h2>{form()}</section></div>
+<section aria-labelledby="h-en"><h2 id="h-en">Make an entry</h2>{form(out=False)}</section></div>
+<section class="entry book" aria-labelledby="h-reg"><h2 id="h-reg">The register</h2><p class="empty">{EMPTY}</p>{OUTB}</section>
 <section class="entry" aria-labelledby="h-nx"><h2 id="h-nx">What comes next</h2>{ul(NEXT)}</section>
 </main>
 """ + footer().replace("</body>", "</div></body>")

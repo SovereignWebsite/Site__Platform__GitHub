@@ -43,6 +43,11 @@ main *{min-width:0}
 .chrome li a[aria-current]{font-weight:700;text-decoration:underline}
 .chrome .gap{border-top:1px solid var(--ctl);margin-top:.3rem;padding-top:.3rem}
 .chrome small{display:block;font-size:.85rem;color:var(--muted);font-weight:400}
+.ring:has(#out:not(:empty)) .empty,.book:has(#out:not(:empty)) .empty{display:none}
+.out .scroll{overflow-x:auto}
+main .out table th,main .out table td{overflow-wrap:normal;word-break:normal;white-space:nowrap}
+main .out table td:nth-child(6){white-space:normal;min-width:10rem}
+.out table{min-width:38rem}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .signin{display:grid;grid-template-columns:1fr auto auto;gap:.4rem .6rem;align-items:end;margin:1.25rem 0 .5rem}
 .signin label{font-size:.9rem;color:var(--muted);grid-row:1}
@@ -100,7 +105,7 @@ footer{border-top:1px solid var(--line)}
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap"><nav class="chrome" aria-label="Designs and the Sovereign Website family">
-<details><summary>Choose a design</summary><ul><li><a href="/designs/1/">1. Key Ring<small>Every way into your repositories is a key; the page is the ring that holds them, with your token as the one you bring.</small></a></li><li><a href="/designs/2/" aria-current="page">2. Strongroom<small>A strongroom, dark first: the rules for your token on the door, the access view inside.</small></a></li><li><a href="/designs/3/">3. Register<small>An access register: who may enter, each column ruled, the rules for the token as its front page.</small></a></li><li><a href="/designs/4/">4. Pre-flight<small>A pre-flight checklist: what stands out, step by step, before you trust a repository.</small></a></li><li><a href="/designs/5/">5. Brief<small>Everything on one plain page, for reading fast or printing.</small></a></li><li class="gap"><a href="/designs/">All five, side by side</a></li><li><a href="/">The site as it is now</a></li></ul></details>
+<details><summary>Choose a design</summary><ul><li><a href="/designs/1/">1. Key Ring<small>A workbench: your token as the key tag on the left, and every way into your repositories laid out as the ring beside it.</small></a></li><li><a href="/designs/2/" aria-current="page">2. Strongroom<small>A strongroom, dark first: the rules for your token on the door, the access view inside.</small></a></li><li><a href="/designs/3/">3. Register<small>An access register: the rules for the token as its front page, then the register itself, your repositories and who may enter, as the body of the book.</small></a></li><li><a href="/designs/4/">4. Pre-flight<small>A pre-flight checklist: what stands out, step by step, before you trust a repository.</small></a></li><li><a href="/designs/5/">5. Brief<small>Everything on one plain page, for reading fast or printing.</small></a></li><li class="gap"><a href="/designs/">All five, side by side</a></li><li><a href="/">The site as it is now</a></li></ul></details>
 <details><summary>Sovereign Website</summary><ul><li><a href="/start/">Start here</a></li><li><a href="/agents/">Use with your AI</a></li><li><a href="/admin/">How this site was made</a></li><li class="gap"><a href="/policy/">How this site is governed</a></li><li><a href="https://sovereignwebsite.ai/">Sovereign Website</a></li><li><a href="https://sovereignwebsite.org/">Principles</a></li><li><a href="https://sovereignwebsite.site/">Hosted</a></li><li><a href="https://hub.sovereignweb.site/">Hub</a></li><li><a href="https://agents.sovereignweb.site/">Agents</a></li><li><a href="https://vault.sovereignwebsite.site/">Vault</a></li><li><a href="https://agenticcells.ai/">AgentiCCells</a></li><li><a href="https://riskmandate.ai/">RiskMandate</a></li><li><a href="https://newsroom.sgit.ai/">Newsroom</a></li></ul></details>
 </nav>
 <header class="mast"><a class="brand" href="/">GitHub</a><nav class="own" aria-label="This site"><a href="#signin">Read my access</a><a href="#token-rules">Your token stays with you</a><a href="/start/">Start here</a><a href="/agents/">Use with your AI</a></nav></header>
