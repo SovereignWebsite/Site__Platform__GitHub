@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://api.github.com; img-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'none'; form-action 'self'">
+<title>Register, design 3 of GitHub</title>
+<meta name="description" content="Design 3 of github.platform.sovereignweb.site, Register: An access register: who may enter, each column ruled, the rules for the token as its front page.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="GitHub">
+<meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://github.platform.sovereignweb.site/designs/3/">
+<meta property="og:title" content="Register, design 3 of GitHub">
+<meta property="og:description" content="Design 3 of github.platform.sovereignweb.site, Register: An access register: who may enter, each column ruled, the rules for the token as its front page.">
+<meta property="og:image" content="https://github.platform.sovereignweb.site/assets/share/card-1200x630.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="GitHub">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Register, design 3 of GitHub">
+<meta name="twitter:description" content="Design 3 of github.platform.sovereignweb.site, Register: An access register: who may enter, each column ruled, the rules for the token as its front page.">
+<meta name="twitter:image" content="https://github.platform.sovereignweb.site/assets/share/card-1200x630.jpg">
+<link rel="canonical" href="https://github.platform.sovereignweb.site/designs/3/">
+<style>
+*{box-sizing:border-box}
+html{color-scheme:light dark;-webkit-text-size-adjust:100%}
+body{margin:0;font:1.0625rem/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--fg);overflow-wrap:break-word}
+a{color:var(--link)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.skip{position:absolute;left:-999px;top:.5rem;z-index:99;background:var(--bg);color:var(--fg);padding:.5rem .9rem;border:2px solid var(--focus)}
+.skip:focus{left:1rem}
+main *{min-width:0}
+.chrome{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:flex-end;position:relative;z-index:5;padding-top:.5rem}
+.chrome details{position:relative}
+.chrome summary{cursor:pointer;list-style:none;min-height:44px;display:inline-flex;align-items:center;padding:.35rem .8rem;border:1px solid var(--ctl);border-radius:999px;font-size:.9rem;background:var(--bg);color:var(--fg)}
+.chrome summary::-webkit-details-marker{display:none}
+.chrome summary::after{content:"";width:.45rem;height:.45rem;margin-left:.5rem;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px)}
+.chrome details[open] summary::after{transform:rotate(-135deg)}
+.chrome ul{position:absolute;right:0;top:calc(100% + .35rem);margin:0;padding:.4rem;list-style:none;min-width:15rem;max-width:calc(100vw - 2rem);background:var(--bg);color:var(--fg);border:1px solid var(--ctl);border-radius:.6rem;box-shadow:0 .6rem 1.6rem rgba(0,0,0,.25)}
+.chrome li a{display:block;padding:.55rem .7rem;border-radius:.4rem;color:var(--fg);text-decoration:none;font-size:.95rem}
+.chrome li a:hover,.chrome li a:focus-visible{background:var(--hover)}
+.chrome li a[aria-current]{font-weight:700;text-decoration:underline}
+.chrome .gap{border-top:1px solid var(--ctl);margin-top:.3rem;padding-top:.3rem}
+.chrome small{display:block;font-size:.85rem;color:var(--muted);font-weight:400}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.signin{display:grid;grid-template-columns:1fr auto auto;gap:.4rem .6rem;align-items:end;margin:1.25rem 0 .5rem}
+.signin label{font-size:.9rem;color:var(--muted);grid-row:1}
+.signin label[for=__none]{grid-column:2}
+.signin input,.signin select,.signin button{font:inherit;font-size:1rem;padding:.55rem .7rem;border:1px solid var(--ctl);border-radius:6px;background:var(--field);color:var(--fg);min-height:44px}
+.signin input{grid-column:1;grid-row:2}.signin select{grid-column:2;grid-row:2}
+.signin button{grid-column:3;grid-row:2;background:var(--accent);color:var(--on-accent);border-color:var(--accent);font-weight:700;cursor:pointer}
+@media (max-width:30rem){.signin{grid-template-columns:1fr auto}.signin button{grid-column:1/-1;grid-row:3}}
+.status{font-weight:700;min-height:1.6em}
+.note{font-size:.95rem;color:var(--muted)}
+button.small,.out select{font:inherit;font-size:1rem;padding:.4rem .7rem;border:1px solid var(--ctl);border-radius:6px;background:var(--field);color:var(--link);font-weight:700;min-height:44px;cursor:pointer}
+.out select{color:var(--fg);font-weight:400}
+.out label{color:var(--muted)}
+#forget{margin:.3rem 0}
+.out h3{font-size:1.1rem;margin:1rem 0 .3rem}
+.out table{border-collapse:collapse;width:100%;font-size:.95rem}
+.out caption{text-align:left;font-weight:700;padding:.4rem 0}
+.out th,.out td{text-align:left;vertical-align:top;padding:.45rem .6rem;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
+.out thead th{color:var(--muted);font-size:.9rem}
+.scroll{overflow-x:auto;margin:1rem 0}
+.out table{border-collapse:collapse;width:100%;font-size:.95rem}
+.out caption{text-align:left;font-weight:700;padding:.4rem 0}
+.out th,.out td{text-align:left;vertical-align:top;padding:.45rem .6rem;border-bottom:1px solid var(--line)}
+.out thead th{color:var(--muted);font-size:.9rem}
+.out th .sub{display:block;font-weight:400;color:var(--muted);font-size:.875rem}
+.out tr.group th{background:var(--hover);font-size:.875rem;letter-spacing:.06em;text-transform:uppercase}
+.out td.vals{white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;overflow-wrap:anywhere}
+.out td.ok{color:var(--ok);font-weight:700;white-space:nowrap}
+.out td.bad{color:var(--bad);font-weight:700}
+.out td.num{text-align:right;font-variant-numeric:tabular-nums}
+.sent{font-size:.9rem;color:var(--muted)}
+footer{padding:2rem 0 3rem;font-size:.95rem}
+footer nav{display:flex;flex-wrap:wrap;gap:.25rem 1.25rem}
+footer nav a{min-height:44px;display:inline-flex;align-items:center}
+@media print{.chrome,.skip,.signin,#forget{display:none}}
+
+:root{--bg:#fbfaf6;--fg:#1b1a17;--muted:#56524a;--link:#1f4f7a;--focus:#1f4f7a;--ctl:#7f796e;--hover:#efece3;--field:#ffffff;--accent:#1f4f7a;--on-accent:#ffffff;--line:#d7d1c3;--ok:#1d6b45;--bad:#a13a2a;--rule:#b9b09d}
+@media (prefers-color-scheme:dark){:root{--bg:#161512;--fg:#efece4;--muted:#c0baae;--link:#9cc8f0;--focus:#9cc8f0;--ctl:#8b8578;--hover:#24221d;--field:#1d1b17;--accent:#9cc8f0;--on-accent:#0b1420;--line:#3b3831;--ok:#86ddb3;--bad:#ff9b8a;--rule:#5a5446}}
+.wrap{max-width:64rem;margin:0 auto;padding:0 1rem}
+.mast{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.5rem 1rem;padding:.5rem 0;border-bottom:3px double var(--rule)}
+.brand{font:700 1.25rem Georgia,"Iowan Old Style","Times New Roman",serif;color:var(--fg);text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+.own{display:flex;flex-wrap:wrap;gap:.25rem 1rem;font-size:.95rem}.own a{color:var(--fg);min-height:44px;display:inline-flex;align-items:center}
+h1,h2{font-family:Georgia,"Iowan Old Style","Times New Roman",serif}
+.title{text-align:center;padding:clamp(1.5rem,5vw,3rem) 0 1rem;border-bottom:1px solid var(--rule)}
+.k{font:600 .85rem ui-monospace,Menlo,Consolas,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0}
+h1{font-size:clamp(2.1rem,6vw,3.4rem);line-height:1.08;margin:.6rem auto 1rem;max-width:20ch}
+.title p{max-width:42rem;margin:0 auto}
+.leaf{display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));padding:2rem 0;border-bottom:1px solid var(--rule)}
+h2{font-size:1.45rem;margin:0 0 .4rem}
+.plain{list-style:none;padding:0;margin:0;counter-reset:n}
+.plain li{counter-increment:n;padding:.55rem 0 .55rem 2.2rem;position:relative;border-bottom:1px solid var(--line)}
+.plain li::before{content:counter(n,decimal-leading-zero);position:absolute;left:0;font:700 .9rem ui-monospace,Menlo,Consolas,monospace;color:var(--muted)}
+.entry{padding:2rem 0}
+footer{border-top:3px double var(--rule)}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap"><nav class="chrome" aria-label="Designs and the Sovereign Website family">
+<details><summary>Choose a design</summary><ul><li><a href="/designs/1/">1. Key Ring<small>Every way into your repositories is a key; the page is the ring that holds them, with your token as the one you bring.</small></a></li><li><a href="/designs/2/">2. Strongroom<small>A strongroom, dark first: the rules for your token on the door, the access view inside.</small></a></li><li><a href="/designs/3/" aria-current="page">3. Register<small>An access register: who may enter, each column ruled, the rules for the token as its front page.</small></a></li><li><a href="/designs/4/">4. Pre-flight<small>A pre-flight checklist: what stands out, step by step, before you trust a repository.</small></a></li><li><a href="/designs/5/">5. Brief<small>Everything on one plain page, for reading fast or printing.</small></a></li><li class="gap"><a href="/designs/">All five, side by side</a></li><li><a href="/">The site as it is now</a></li></ul></details>
+<details><summary>Sovereign Website</summary><ul><li><a href="/start/">Start here</a></li><li><a href="/agents/">Use with your AI</a></li><li><a href="/admin/">How this site was made</a></li><li class="gap"><a href="/policy/">How this site is governed</a></li><li><a href="https://sovereignwebsite.ai/">Sovereign Website</a></li><li><a href="https://sovereignwebsite.org/">Principles</a></li><li><a href="https://sovereignwebsite.site/">Hosted</a></li><li><a href="https://hub.sovereignweb.site/">Hub</a></li><li><a href="https://agents.sovereignweb.site/">Agents</a></li><li><a href="https://vault.sovereignwebsite.site/">Vault</a></li><li><a href="https://agenticcells.ai/">AgentiCCells</a></li><li><a href="https://riskmandate.ai/">RiskMandate</a></li><li><a href="https://newsroom.sgit.ai/">Newsroom</a></li></ul></details>
+</nav>
+<header class="mast"><a class="brand" href="/">GitHub</a><nav class="own" aria-label="This site"><a href="#signin">Read my access</a><a href="#token-rules">Your token stays with you</a><a href="/start/">Start here</a><a href="/agents/">Use with your AI</a></nav></header>
+<main id="main">
+<div class="title"><p class="k">The access register · github.platform.sovereignweb.site</p><h1>Your GitHub access, at a glance</h1><p>See every repository you can reach, your role on each, and who else has access: people, teams, deploy keys, webhooks and rulesets. It only reads. An unofficial site, not made or endorsed by GitHub.</p></div>
+<div class="leaf"><section id="token-rules" aria-labelledby="h-st"><h2 id="h-st">Your token stays with you</h2><ul class="plain"><li>It is kept only in this tab's memory: reload or close the tab and it is gone. It is never stored, never logged and never sent anywhere but <code>api.github.com</code>, straight from your browser. This site has no server.</li><li>The page only reads: it makes GET requests and nothing else, so it cannot change your repositories even with a token that could.</li><li>Make a <a href="https://github.com/settings/personal-access-tokens/new">fine-grained token</a> with read-only access: Metadata, Administration (to see people, keys and rulesets) and Webhooks, on the repositories you choose. Give it a short expiry. An organisation may need to approve it.</li></ul></section>
+<section aria-labelledby="h-en"><h2 id="h-en">Make an entry</h2><form id="signin" class="signin" autocomplete="off">
+<label for="token">Your GitHub token (fine-grained, read-only)</label>
+<input id="token" name="token" type="password" spellcheck="false" autocapitalize="off" required>
+<button type="submit">Read my access</button>
+</form>
+<p class="sent">When you press the button, your token goes from this tab to api.github.com and nowhere else; this page names only that host in its security policy.</p>
+<button id="forget" type="button" class="small" hidden>Forget the token</button>
+<p id="status" class="status" role="status" aria-live="polite"></p>
+<p id="rate" class="note"></p>
+<div class="out"><div id="out"></div><div id="detail"></div></div></section></div>
+<section class="entry" aria-labelledby="h-nx"><h2 id="h-nx">What comes next</h2><ul class="plain"><li>Each repository now shows what stands out: public with you as admin, archived, a fork, no push for a year; and in its access view, a deploy key that can push, a webhook without HTTPS, no active ruleset.</li><li>Signing in with GitHub instead of pasting a token. GitHub's login step does not allow calls from a web page, so it needs one small exchange step off the page; that waits for the owner's word.</li><li>For the SovereignWebsite organisation, changes are proposed to <a href="https://github.com/SovereignWebsite/SovereignWebsite__Factory">SovereignWebsite__Factory</a>, which runs it as code; this site never applies them.</li></ul></section>
+</main>
+<footer>
+<nav aria-label="About this site"><a href="/start/">Start here</a> <a href="/agents/">Use with your AI</a> <a href="/admin/">How this site was made</a> <a href="/policy/">How this site is governed</a></nav>
+<p>A sovereign website, made with the <a href="https://sovereignwebsite.org/">open pattern</a>. Source: <a href="https://github.com/SovereignWebsite/Site__Platform__GitHub">github.com/SovereignWebsite/Site__Platform__GitHub</a>.</p>
+</footer>
+<script src="/assets/gh.js" defer></script>
+</div></body>
+</html>
