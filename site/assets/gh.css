@@ -14,3 +14,10 @@ table{border-collapse:collapse;width:100%;font-size:.9rem}
 caption{text-align:left;font-weight:600;padding:.4rem 0;color:var(--fg)}
 th,td{text-align:left;vertical-align:top;padding:.45rem .6rem;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
 thead th{color:var(--muted);font-weight:600;font-size:.8rem}
+/* design.c round 1: control borders at 3:1, body text in --fg, nothing under 14 px */
+:root{--control:#85847f}
+@media (prefers-color-scheme:dark){:root{--control:#76756f}}
+.signin input,button.small,select{border-color:var(--control)}
+main p.lead,main ul.plain,main ul.plain li{color:var(--fg)}
+footer,.note{font-size:.9rem}
+.signin label,.mark,thead th{font-size:.875rem}

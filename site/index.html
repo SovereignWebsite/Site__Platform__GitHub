@@ -2,6 +2,7 @@
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://api.github.com; img-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GitHub</title>
 <meta name="description" content="Manage your GitHub access and repositories from your own browser: who can reach what, and what changed. An unofficial site, not made or endorsed by GitHub.">
@@ -87,12 +88,13 @@ code{font-size:.9em}main a,main code{overflow-wrap:anywhere}
   <nav class="own" aria-label="This site">
     <a href="/start/">Start here</a>
     <a href="/agents/">Use with your AI</a>
+    <a href="/designs/">Choose a design</a>
   </nav>
 </header>
 <main id="main">
 <div class="mark">github.platform.sovereignweb.site</div>
 <h1>Your GitHub access, at a glance</h1>
-<p>See every repository you can reach, your role on each, and who else has access: people, teams, deploy keys, webhooks and rulesets. It only reads. An unofficial site, not made or endorsed by GitHub.</p>
+<p class="lead">See every repository you can reach, your role on each, and who else has access: people, teams, deploy keys, webhooks and rulesets. It only reads. An unofficial site, not made or endorsed by GitHub.</p>
 
 <form id="signin" class="signin" autocomplete="off">
   <label for="token">Your GitHub token (fine-grained, read-only)</label>
