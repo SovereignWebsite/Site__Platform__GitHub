@@ -52,6 +52,16 @@ function table(caption, head, rows) {
 function wrapTd(node) { const td = el('td'); td.append(node); return td; }
 function link(href, text) { const a = el('a', text); a.href = href; a.rel = 'noopener noreferrer'; return a; }
 
+// Quick flags from the repository list itself (no extra calls).
+function flagsOf(r) {
+  const f = [];
+  if (!r.private && r.permissions && r.permissions.admin) f.push('public, and you are admin');
+  if (r.archived) f.push('archived');
+  if (r.fork) f.push('a fork');
+  if (r.pushed_at && Date.now() - Date.parse(r.pushed_at) > 365 * 864e5) f.push('no push for a year');
+  return f;
+}
+
 async function overview() {
   const out = $('#out');
   out.textContent = '';
@@ -81,14 +91,14 @@ async function overview() {
   const draw = () => {
     const list = repos.filter(r => !sel.value || r.owner.login === sel.value);
     holder.textContent = '';
-    holder.append(table('Repositories, most recently pushed first', ['Repository', 'Visibility', 'Your role', 'Default branch', 'Last push', 'Detail'],
+    holder.append(table('Repositories, most recently pushed first', ['Repository', 'Visibility', 'Your role', 'Default branch', 'Last push', 'Stands out', 'Detail'],
       list.map(r => {
         const b = el('button', 'Access', 'small');
         b.type = 'button';
         b.setAttribute('aria-label', `Access for ${r.full_name}`);
         b.addEventListener('click', () => detail(r));
         const role = r.permissions ? (r.permissions.admin ? 'admin' : r.permissions.maintain ? 'maintain' : r.permissions.push ? 'write' : r.permissions.triage ? 'triage' : 'read') : '-';
-        return [link(r.html_url, r.full_name), r.private ? 'private' : 'public', role, r.default_branch || '-', day(r.pushed_at), b];
+        return [link(r.html_url, r.full_name), r.private ? 'private' : 'public', role, r.default_branch || '-', day(r.pushed_at), flagsOf(r).join('; ') || '-', b];
       })));
   };
   sel.addEventListener('change', draw);
@@ -115,6 +125,12 @@ async function detail(r) {
   part('Deploy keys', keys, ['Title', 'Read only', 'Added'], k => [k.title, k.read_only ? 'yes' : 'no, can push', day(k.created_at)]);
   part('Webhooks', hooks, ['Sends to', 'Active', 'Events'], w => [w.config && w.config.url ? new URL(w.config.url).host : '-', w.active ? 'yes' : 'no', (w.events || []).join(', ')]);
   part('Rulesets', rules, ['Name', 'Target', 'Enforcement'], s => [s.name, s.target || '-', s.enforcement || '-']);
+  const warn = [];
+  if (Array.isArray(keys) && keys.some(k => !k.read_only)) warn.push('A deploy key can push to this repository.');
+  if (Array.isArray(hooks) && hooks.some(w => w.config && w.config.url && !/^https:/i.test(w.config.url))) warn.push('A webhook sends to an address without HTTPS.');
+  if (Array.isArray(rules) && !rules.some(x => x.enforcement === 'active')) warn.push('No active ruleset: the default branch may have no rules (classic branch protection is not checked here).');
+  if (Array.isArray(collab) && collab.length > 1 && !r.private) warn.push(`${collab.length} people can reach this public repository directly.`);
+  if (warn.length) { box.append(el('h3', 'Stands out')); const ul = el('ul', null, 'plain'); warn.forEach(w => ul.append(el('li', w))); box.append(ul); }
   if (pages.error) box.append(el('p', pages.error === 404 ? 'Pages: not switched on.' : `Pages: ${why(pages.error)}.`, 'note'));
   else box.append(el('p', `Pages: ${pages.data.html_url || '-'}${pages.data.https_enforced ? ', HTTPS enforced' : ''}.`, 'note'));
   if (r.owner.login.toLowerCase() === 'sovereignwebsite') {
